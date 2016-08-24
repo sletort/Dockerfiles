@@ -30,7 +30,7 @@ WORKDIR ${DIR}
 
 ## get code source
 #--- from git repo
-ENV GIT http://gitlab.irisa.fr/0000CCAG/programdescriptions.git
+ENV GIT https://gitlab.irisa.fr/0000CCAG/programdescriptions.git
 RUN git clone ${GIT}
 
 #--- /from git repo
