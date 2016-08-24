@@ -16,15 +16,27 @@ RUN apt-get install -y ${PACKAGES}
 
 ################## XXXXX INSTALLATION ######################
 ENV DIR /opt
+ENV DESCR_DIR /opt/descr
+RUN mkdir $DESCR_DIR
+
+# directory containing source code
+# 	should be under $DIR
+ENV SOURCE_DIR ...
+
+WORKDIR ${DIR}
 
 ## get code source
 #--- from tar file
 ENV TAR ...
-ENV SOURCE_DIR ...
-
-WORKDIR ${DIR}
 RUN wget ${TAR} -O - | tar xvzf -
+
 #--- /from tar file
+
+#--- from git repo
+ENV GIT ...
+RUN git clone ${GIT}
+
+#--- /from git repo
 
 ## installation commands
 WORKDIR ${SOURCE_DIR}
@@ -40,7 +52,10 @@ MAINTAINER "sletort"
 
 LABEL ANNOT.Name="XXXXX" \
 		ANNOT.Version="VVVVV" \
+		ANNOT.Licence="" \
 		ANNOT.Description="" \
+		ANNOT.author="Sébastien Letort" \
+		ANNOT.author_URI="https://www.researchgate.net/profile/Sebastien_Letort" \
 		ANNOT.Homepage="" \
 		ANNOT.Reference="['']" \
 		ANNOT.Vendor="" \
@@ -48,9 +63,7 @@ LABEL ANNOT.Name="XXXXX" \
 		ANNOT.Provides="['']" \
 		ANNOT.EDAM_Operation="['']" \
 		ANNOT.EDAM_Topic="['']" \
-		ANNOT.author="" \
-		ANNOT.author_URI="" \
-		ANNOT.Licence=""
+		ANNOT.Support_URL=""
 
 # Comment to translate edam code in labels (for human comprehension).
 #EDAM_Operation
