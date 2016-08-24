@@ -1,0 +1,61 @@
+############################################################
+# Dockerfile to build XXXXX tool container image
+# Based on debian Jessie/8
+############################################################
+
+# Set the base image to debian
+FROM debian:8
+
+RUN apt-get update -y
+RUN apt-get upgrade -y
+
+################## DEPENDENCIES INSTALLATION ######################
+ENV PACKAGES 
+
+RUN apt-get install -y ${PACKAGES}
+
+################## XXXXX INSTALLATION ######################
+ENV DIR /opt
+
+## get code source
+#--- from tar file
+ENV TAR ...
+ENV SOURCE_DIR ...
+
+WORKDIR ${DIR}
+RUN wget ${TAR} -O - | tar xvzf -
+#--- /from tar file
+
+## installation commands
+WORKDIR ${SOURCE_DIR}
+RUN ...
+
+################## Dockerfile usage ######################
+## the command launched by default when running the container
+ENTRYPOINT ["..."]
+CMD ["-help"]
+
+################## METADATA ######################
+MAINTAINER "sletort"
+
+LABEL ANNOT.Name="XXXXX" \
+		ANNOT.Version="" \
+		ANNOT.Description="" \
+		ANNOT.Homepage="" \
+		ANNOT.Reference="['']" \
+		ANNOT.Vendor="" \
+		ANNOT.Requires="['']" \
+		ANNOT.Provides="['']" \
+		ANNOT.EDAM_Operation="['']" \
+		ANNOT.EDAM_Topic="['']" \
+		ANNOT.author="" \
+		ANNOT.author_URI="" \
+		ANNOT.Licence=""
+
+# Comment to translate edam code in labels (for human comprehension).
+#EDAM_Operation
+#	operation_0484 - SNP detection
+#
+#EDAM_Topic
+#	topic_2885 - DNA polymorphism
+
