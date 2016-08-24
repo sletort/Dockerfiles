@@ -39,7 +39,7 @@ CMD ["-help"]
 MAINTAINER "sletort"
 
 LABEL ANNOT.Name="XXXXX" \
-		ANNOT.Version="" \
+		ANNOT.Version="VVVVV" \
 		ANNOT.Description="" \
 		ANNOT.Homepage="" \
 		ANNOT.Reference="['']" \

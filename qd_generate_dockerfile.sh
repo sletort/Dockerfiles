@@ -11,7 +11,7 @@ set -o errexit
 
 # =========================================================
 declare -r PROG="${1?What is your program name ?}"
-declare -r VERSION="${1?What is the version of the program ?}"
+declare -r VERSION="${2?What is the version of the program ?}"
 
 # ---------------------------------------------------------
 
@@ -37,7 +37,7 @@ function main ()
 	fi
 
 	local perle='s/XXXXX/'$PROG'/g;'
-	perle=$perle' s/VVVV/'$VERSION'/g;'
+	perle=$perle' s/VVVVV/'$VERSION'/g;'
 	perl -pe "$perle" Dockerfile.template > "$OUTDIR"/Dockerfile
 }
 
