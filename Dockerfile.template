@@ -42,6 +42,8 @@ RUN git clone ${GIT}
 WORKDIR ${SOURCE_DIR}
 RUN ...
 
+## test commands
+
 ################## Dockerfile usage ######################
 ## the command launched by default when running the container
 ENTRYPOINT ["..."]
