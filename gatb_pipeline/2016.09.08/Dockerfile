@@ -6,6 +6,7 @@
 # Set the base image to debian
 FROM debian:8
 
+RUN apt-get clean -y
 RUN apt-get update -y
 RUN apt-get upgrade -y
 
@@ -15,16 +16,28 @@ ENV PACKAGES git bwa make nano \
 	curl
 
 RUN apt-get install -y ${PACKAGES}
+RUN pip install mathstats pyfasta pysam==0.8.3
 
-################## gatb_pipeline INSTALLATION ######################
+#### program_description INSTALLATION => for Prov-O trace #########
 ENV DIR /opt
+WORKDIR ${DIR}
+
+## get code source
+#--- from git repo
+ENV GIT https://gitlab.irisa.fr/0000CCAG/programdescriptions.git
+RUN git clone --recursive ${GIT}
+
+#--- /from git repo
+
 ENV DESCR_DIR /opt/descr
 RUN mkdir $DESCR_DIR
 
+################## gatb_pipeline INSTALLATION ######################
 # directory containing source code
 # 	should be under $DIR
 ENV SOURCE_DIR $DIR/gatb-minia-pipeline
 
+ENV DIR /opt
 WORKDIR ${DIR}
 
 ## get code source
@@ -46,8 +59,8 @@ RUN make test
 
 ## add program description
 WORKDIR $DESCR_DIR
-RUN curl https://gitlab.irisa.fr/semantic_programs/program_descriptions_data/raw/04d5abc112dbfa15e6966b591d022d01bbbfd3f3/descr/gatb_pipeline.json \
-	> gatb_pipeline.json
+ENV DESCR_URL https://gitlab.irisa.fr/semantic_programs/program_descriptions_data/raw/04d5abc112dbfa15e6966b591d022d01bbbfd3f3/descr/gatb_pipeline.json
+RUN curl $DESCR_URL > gatb_pipeline.json
 
 ################## Dockerfile usage ######################
 WORKDIR $SOURCE_DIR
