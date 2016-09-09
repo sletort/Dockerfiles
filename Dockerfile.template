@@ -14,6 +14,20 @@ ENV PACKAGES
 
 RUN apt-get install -y ${PACKAGES}
 
+#### program_description INSTALLATION => for Prov-O trace #########
+ENV DIR /opt
+WORKDIR ${DIR}
+
+## get code source
+#--- from git repo
+ENV GIT https://gitlab.irisa.fr/0000CCAG/programdescriptions.git
+RUN git clone --recursive ${GIT}
+
+#--- /from git repo
+
+ENV DESCR_DIR /opt/descr
+RUN mkdir $DESCR_DIR
+
 ################## XXXXX INSTALLATION ######################
 ENV DIR /opt
 ENV DESCR_DIR /opt/descr
