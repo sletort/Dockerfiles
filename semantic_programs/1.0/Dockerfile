@@ -31,7 +31,8 @@ ENV SOURCE_DIR Program_Descriptions
 #--- /from git repo
 
 ## installation commands
-run ln -s $DIR/$SOURCE_DIR/*.py /usr/local/bin/
+RUN ln -s $DIR/$SOURCE_DIR/*.py /usr/local/bin/
+RUN export PYTHON_PATH=$PYTHON_PATH:$DIR/$SOURCE_DIR/lib
 
 ENV DESCR_DIR /opt/descr
 RUN mkdir $DESCR_DIR
