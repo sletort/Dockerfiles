@@ -4,36 +4,18 @@
 ############################################################
 
 # Set the base image to debian
-FROM debian:8
-
-RUN apt-get update -y
-RUN apt-get upgrade -y
+FROM sletort/semantic_programs:latest
 
 ################## DEPENDENCIES INSTALLATION ######################
-ENV PACKAGES curl git
+ENV PACKAGES
 
 RUN apt-get install -y ${PACKAGES}
 
-#### program_description INSTALLATION => for Prov-O trace #########
-ENV DIR /opt
-WORKDIR ${DIR}
-
-## get code source
-#--- from git repo
-ENV GIT https://gitlab.irisa.fr/0000CCAG/programdescriptions.git
-RUN git clone --recursive ${GIT}
-
-#--- /from git repo
-
-ENV DESCR_DIR /opt/descr
-RUN mkdir $DESCR_DIR
-ENV DESCR_URL https://gitlab.irisa.fr/semantic_programs/program_descriptions_data/raw/XXX
-RUN curl $DESCR_URL > XXX
-
+#### Already defined directories   ####
+#### please use and do not modify. ####
+# ENV DIR /opt
+# ENV DESCR_DIR /opt/descr
 ################## XXXXX INSTALLATION ######################
-ENV DIR /opt
-ENV DESCR_DIR /opt/descr
-RUN mkdir $DESCR_DIR
 
 # directory containing source code
 # 	should be under $DIR
@@ -68,20 +50,20 @@ CMD ["-help"]
 ################## METADATA ######################
 MAINTAINER "sletort"
 
-LABEL ANNOT.Name="XXXXX" \
-		ANNOT.Version="VVVVV" \
-		ANNOT.Licence="" \
-		ANNOT.Description="" \
-		ANNOT.author="Sébastien Letort" \
-		ANNOT.author_URI="https://www.researchgate.net/profile/Sebastien_Letort" \
-		ANNOT.Homepage="" \
-		ANNOT.Reference="['']" \
-		ANNOT.Vendor="" \
-		ANNOT.Requires="['']" \
-		ANNOT.Provides="['']" \
-		ANNOT.EDAM_Operation="['']" \
-		ANNOT.EDAM_Topic="['']" \
-		ANNOT.Support_URL=""
+#LABEL ANNOT.Name="XXXXX" \
+#		ANNOT.Version="VVVVV" \
+#		ANNOT.Licence="" \
+#		ANNOT.Description="" \
+#		ANNOT.author="Sébastien Letort" \
+#		ANNOT.author_URI="https://www.researchgate.net/profile/Sebastien_Letort" \
+#		ANNOT.Homepage="" \
+#		ANNOT.Reference="['']" \
+#		ANNOT.Vendor="" \
+#		ANNOT.Requires="['']" \
+#		ANNOT.Provides="['']" \
+#		ANNOT.EDAM_Operation="['']" \
+#		ANNOT.EDAM_Topic="['']" \
+#		ANNOT.Support_URL=""
 
 # Comment to translate edam code in labels (for human comprehension).
 #EDAM_Operation
