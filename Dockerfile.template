@@ -10,7 +10,7 @@ RUN apt-get update -y
 RUN apt-get upgrade -y
 
 ################## DEPENDENCIES INSTALLATION ######################
-ENV PACKAGES 
+ENV PACKAGES curl git
 
 RUN apt-get install -y ${PACKAGES}
 
@@ -27,6 +27,8 @@ RUN git clone --recursive ${GIT}
 
 ENV DESCR_DIR /opt/descr
 RUN mkdir $DESCR_DIR
+ENV DESCR_URL https://gitlab.irisa.fr/semantic_programs/program_descriptions_data/raw/XXX
+RUN curl $DESCR_URL > XXX
 
 ################## XXXXX INSTALLATION ######################
 ENV DIR /opt
