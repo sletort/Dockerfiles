@@ -1,0 +1,26 @@
+# Here are some labels you can include in your dockerfile.
+# They should be generated with the command
+# docker run --rm -it --entrypoint=parse_description.py X --mode docker /opt/descr/X.json
+# Where X is your program and image name
+
+LABEL ANNOT.Name="" \
+		ANNOT.Version="" \
+		ANNOT.Licence="" \
+		ANNOT.Description="" \
+		ANNOT.author="Sébastien Letort" \
+		ANNOT.author_URI="https://www.researchgate.net/profile/Sebastien_Letort" \
+		ANNOT.Homepage="" \
+		ANNOT.Reference="['']" \
+		ANNOT.Vendor="" \
+		ANNOT.Requires="['']" \
+		ANNOT.Provides="['']" \
+		ANNOT.EDAM_Operation="['']" \
+		ANNOT.EDAM_Topic="['']" \
+		ANNOT.Support_URL=""
+
+# Comment to translate edam code in labels (for human comprehension).
+#EDAM_Operation
+#   operation_0484 - SNP detection
+#
+#EDAM_Topic
+#   topic_2885 - DNA polymorphism
