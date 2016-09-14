@@ -19,10 +19,6 @@ RUN pip install mathstats pyfasta pysam==0.8.3
 # ENV DESCR_DIR /opt/descr
 
 ################## gatb_pipeline INSTALLATION ######################
-# directory containing source code
-# 	should be under $DIR
-ENV SOURCE_DIR $DIR/gatb-minia-pipeline
-
 WORKDIR ${DIR}
 
 ## get code source
@@ -31,6 +27,10 @@ ENV GIT https://github.com/GATB/gatb-minia-pipeline.git
 RUN git clone --recursive ${GIT}
 
 #--- /from git repo
+
+# directory containing source code
+# 	should be under $DIR
+ENV SOURCE_DIR $DIR/gatb-minia-pipeline
 
 ## installation commands
 WORKDIR ${SOURCE_DIR}
@@ -56,10 +56,12 @@ CMD ["-help"]
 ################## METADATA ######################
 MAINTAINER "sletort"
 
+LABEL	ANNOT.Version="2016.09"
+#		ANNOT.Licence="" \
+
 LABEL	ANNOT.Name="gatb-pipeline" \
 	ANNOT.Description="gatb-pipeline uses gatb tools to generate an assembly from short reads. It uses bloocoo, minia, and a non gatb-tool named BESST." \
 	ANNOT.author="Rayan Chikhi" \
-	ANNOT.author_URI="http://rayan.chikhi.name" \
 	ANNOT.Vendor="Inria" \
 	ANNOT.Homepage="https://github.com/GATB/gatb-minia-pipeline" \
 	ANNOT.Support_URL="https://www.biostars.org/t/minia/" \
@@ -68,9 +70,6 @@ LABEL	ANNOT.Name="gatb-pipeline" \
 	ANNOT.Requires="['python', 'python-scipy', 'pysam==0.8.3', 'git', 'bwa', 'make', 'mathstats']" \
 	ANNOT.Provides="['bloocoo', 'minia', 'BESST', 'gatb']" \
 	ANNOT.author_URI="['http://cristal.univ-lille.fr/~chikhi/']"
-
-LABEL	ANNOT.Version="2016.09"
-#		ANNOT.Licence="" \
 
 # Comment to translate edam code in labels (for human comprehension).
 #EDAM_Operation
@@ -81,4 +80,3 @@ LABEL	ANNOT.Version="2016.09"
 #	topic_0199 - Genetic variation
 #	topic_0654 - DNA analysis
 #	topic_0196 - Sequence assembly
-
