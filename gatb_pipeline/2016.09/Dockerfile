@@ -10,6 +10,8 @@ FROM sletort/semantic_programs:latest
 ENV PACKAGES bwa make nano \
 	python-pip python-dev zlib1g-dev python-scipy python-networkx
 
+RUN apt-get clean -y
+RUN apt-get update
 RUN apt-get install -y ${PACKAGES}
 RUN pip install mathstats pyfasta pysam==0.8.3
 
