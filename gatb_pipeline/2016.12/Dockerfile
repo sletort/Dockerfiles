@@ -7,68 +7,78 @@
 FROM sletort/semantic_programs:latest
 
 ################## DEPENDENCIES INSTALLATION ######################
-ENV PACKAGES
+ENV PACKAGES bwa make nano \
+	python-pip python-dev zlib1g-dev python-scipy python-networkx
 
+RUN apt-get clean -y
+RUN apt-get update
 RUN apt-get install -y ${PACKAGES}
+RUN pip install mathstats pyfasta pysam==0.8.3
 
 #### Already defined directories   ####
 #### please use and do not modify. ####
 # ENV DIR /opt
 # ENV DESCR_DIR /opt/descr
+
 ################## gatb_pipeline INSTALLATION ######################
-
-# directory containing source code
-# 	should be under $DIR
-ENV SOURCE_DIR ...
-
 WORKDIR ${DIR}
 
 ## get code source
-#--- from tar file
-ENV TAR ...
-RUN wget ${TAR} -O - | tar xvzf -
-
-#--- /from tar file
-
 #--- from git repo
-ENV GIT ...
-RUN git clone ${GIT}
+ENV GIT https://github.com/GATB/gatb-minia-pipeline.git
+RUN git clone --recursive ${GIT}
 
 #--- /from git repo
 
+# directory containing source code
+# 	should be under $DIR
+ENV SOURCE_DIR $DIR/gatb-minia-pipeline
+
 ## installation commands
 WORKDIR ${SOURCE_DIR}
-RUN ...
+RUN git submodule sync
+RUN git submodule update --init --recursive --remote
+
+RUN ln -s $SOURCE_DIR/gatb /usr/local/bin/
 
 ## test commands
+RUN make test
+
+## add program description
+WORKDIR $DESCR_DIR
+ENV DESCR_URL https://gitlab.irisa.fr/semantic_programs/program_descriptions_data/raw/master/descr/gatb_pipeline.json
+RUN curl $DESCR_URL > gatb_pipeline.json
+
 
 ################## Dockerfile usage ######################
 ## the command launched by default when running the container
-ENTRYPOINT ["..."]
+ENTRYPOINT ["gatb"]
 CMD ["-help"]
 
 ################## METADATA ######################
 MAINTAINER "sletort"
 
-#LABEL ANNOT.Name="gatb_pipeline" \
-#		ANNOT.Version="2016.12" \
+LABEL	ANNOT.Version="2016.12"
 #		ANNOT.Licence="" \
-#		ANNOT.Description="" \
-#		ANNOT.author="Sébastien Letort" \
-#		ANNOT.author_URI="https://www.researchgate.net/profile/Sebastien_Letort" \
-#		ANNOT.Homepage="" \
-#		ANNOT.Reference="['']" \
-#		ANNOT.Vendor="" \
-#		ANNOT.Requires="['']" \
-#		ANNOT.Provides="['']" \
-#		ANNOT.EDAM_Operation="['']" \
-#		ANNOT.EDAM_Topic="['']" \
-#		ANNOT.Support_URL=""
+
+LABEL	ANNOT.Name="gatb-pipeline" \
+	ANNOT.Description="gatb-pipeline uses gatb tools to generate an assembly from short reads. It uses bloocoo, minia, and a non gatb-tool named BESST." \
+	ANNOT.author="Rayan Chikhi" \
+	ANNOT.Vendor="Inria" \
+	ANNOT.Homepage="https://github.com/GATB/gatb-minia-pipeline" \
+	ANNOT.Support_URL="https://www.biostars.org/t/minia/" \
+	ANNOT.EDAM_Operation="['operation_0524', 'operation_0525']" \
+	ANNOT.EDAM_Topic="['topic_0199', 'topic_0654', 'topic_0196']" \
+	ANNOT.Requires="['python', 'python-scipy', 'pysam==0.8.3', 'git', 'bwa', 'make', 'mathstats']" \
+	ANNOT.Provides="['bloocoo', 'minia', 'BESST', 'gatb']" \
+	ANNOT.author_URI="['http://cristal.univ-lille.fr/~chikhi/']"
 
 # Comment to translate edam code in labels (for human comprehension).
 #EDAM_Operation
-#	operation_0484 - SNP detection
+#	operation_0524 - De-novo assembly
+#	operation_0525 - Genome assembly
 #
 #EDAM_Topic
-#	topic_2885 - DNA polymorphism
-
+#	topic_0199 - Genetic variation
+#	topic_0654 - DNA analysis
+#	topic_0196 - Sequence assembly
