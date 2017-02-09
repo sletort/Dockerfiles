@@ -34,6 +34,8 @@ RUN git clone --recursive ${GIT}
 # 	should be under $DIR
 ENV SOURCE_DIR $DIR/gatb-minia-pipeline
 
+WORKDIR ${SOURCE_DIR}
+
 RUN ln -s $SOURCE_DIR/gatb /usr/local/bin/
 
 ## test commands
