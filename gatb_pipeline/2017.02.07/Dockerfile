@@ -34,11 +34,6 @@ RUN git clone --recursive ${GIT}
 # 	should be under $DIR
 ENV SOURCE_DIR $DIR/gatb-minia-pipeline
 
-## installation commands
-WORKDIR ${SOURCE_DIR}
-RUN git submodule sync
-RUN git submodule update --init --recursive --remote
-
 RUN ln -s $SOURCE_DIR/gatb /usr/local/bin/
 
 ## test commands
