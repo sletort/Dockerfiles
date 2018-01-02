@@ -11,7 +11,7 @@ FROM jupyter/minimal-notebook
 # RUN apt install -y ${PACKAGES}
 
 ENV PIP_MODULES networkx
-RUN pip3 install ${PIP_MODULES}
+RUN pip install ${PIP_MODULES}
 
 #### Already defined directories   ####
 #### please use and do not modify. ####
