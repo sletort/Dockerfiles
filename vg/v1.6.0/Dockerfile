@@ -40,12 +40,12 @@ ENV GIT https://github.com/vgteam/vg.git
 ENV TAG v1.6.0
 
 RUN git clone --recursive ${GIT}
+WORKDIR vg
 RUN git checkout ${TAG}
 
 #--- /from git repo
 
 ## compile / install
-WORKDIR vg
 RUN . ./source_me.sh \
 	&& make static
 
