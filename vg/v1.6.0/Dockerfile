@@ -40,7 +40,7 @@ ENV GIT https://github.com/vgteam/vg.git
 ENV TAG v1.6.0
 
 RUN git clone --recursive ${GIT}
-RUN git checkout {TAG}
+RUN git checkout ${TAG}
 
 #--- /from git repo
 
