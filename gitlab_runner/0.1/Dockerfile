@@ -17,7 +17,7 @@ ENV PIP_PACKAGES \
 		pip \
 		setuptools \
 		pylint \
-		pytest pytest-sphinx pytest-pylint
+		pytest pytest-sphinx pytest-pylint pytest-cov
 
 RUN apk add --no-cache \
 	${PACKAGES}
