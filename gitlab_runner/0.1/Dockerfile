@@ -9,15 +9,16 @@
 FROM frolvlad/alpine-miniconda3
 
 ################## DEPENDENCIES INSTALLATION ######################
-ENV PACKAGES \
-		python2 \
-		python3
+ENV PACKAGES    \
+        bash    \
+        python2 \
+        python3
 
-ENV PIP_PACKAGES \
-		pip \
-		setuptools \
-		pylint \
-		pytest pytest-sphinx pytest-pylint pytest-cov
+ENV PIP_PACKAGES   \
+        pip        \
+        setuptools \
+        pylint     \
+        pytest pytest-sphinx pytest-pylint pytest-cov
 
 RUN apk add --no-cache \
 	${PACKAGES}
@@ -39,7 +40,7 @@ RUN pytest  --version
 
 ################## Dockerfile usage ######################
 ## the command launched by default when running the container
-ENTRYPOINT ["sh"]
+ENTRYPOINT ["bash"]
 # CMD ["-help"]
 
 ################## METADATA ######################
