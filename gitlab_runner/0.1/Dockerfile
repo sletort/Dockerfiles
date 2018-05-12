@@ -10,9 +10,11 @@ FROM frolvlad/alpine-miniconda3
 
 ################## DEPENDENCIES INSTALLATION ######################
 ENV PACKAGES    \
-        bash    \
-        python2 \
-        python3
+        bash
+
+RUN apk add --no-cache \
+	${PACKAGES}
+
 
 ENV PIP_PACKAGES   \
         pip        \
@@ -20,23 +22,14 @@ ENV PIP_PACKAGES   \
         pylint     \
         pytest pytest-sphinx pytest-pylint pytest-cov
 
-RUN apk add --no-cache \
-	${PACKAGES}
-
-RUN pip3 install --upgrade \
+RUN pip install --upgrade \
 	${PIP_PACKAGES}
 
-#### Already defined directories   ####
-#### please use and do not modify. ####
-# ENV DIR /opt
-# ENV DESCR_DIR /opt/descr
-
 ## test commands
-RUN conda   --version
-RUN python2 --version
-RUN python3 --version
-RUN pylint  --version
-RUN pytest  --version
+RUN conda  --version
+RUN python --version
+RUN pylint --version
+RUN pytest --version
 
 ################## Dockerfile usage ######################
 ## the command launched by default when running the container
