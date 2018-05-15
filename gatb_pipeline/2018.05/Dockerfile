@@ -39,6 +39,7 @@ RUN tar xvzf minia-v3.2.0.tgz
 ENV SOURCE_DIR $DIR/gatb-minia-pipeline
 
 WORKDIR ${SOURCE_DIR}
+RUN rm -f minia/minia
 RUN ln -s ${DIR}/minia-v3.2.0-bin-Linux/bin/minia minia/
 
 RUN ln -s $SOURCE_DIR/gatb /usr/local/bin/
