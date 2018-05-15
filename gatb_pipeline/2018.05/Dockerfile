@@ -31,8 +31,8 @@ RUN git clone --recursive ${GIT}
 #--- /from git repo
 
 # Patch to use minia compiled on jenkins
-curl -L https://github.com/GATB/minia/releases/download/v3.2.0/minia-v3.2.0-bin-Linux.tar.gz -o minia-v3.2.0.tgz
-tar xvzf minia-v3.2.0.tgz
+RUN curl -L https://github.com/GATB/minia/releases/download/v3.2.0/minia-v3.2.0-bin-Linux.tar.gz -o minia-v3.2.0.tgz
+RUN tar xvzf minia-v3.2.0.tgz
 
 # directory containing source code
 #	should be under $DIR
